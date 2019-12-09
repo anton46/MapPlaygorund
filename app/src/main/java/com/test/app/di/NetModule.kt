@@ -85,7 +85,7 @@ class NetModule {
 
     @Singleton
     @Provides
-    fun provideWeatherAPI(
+    fun provideFoursquareAPI(
         apiFactory: ApiFactory<FoursquareApi>,
         apiProviderFactory: ApiProviderFactory,
         @Named(RxModule.COMPUTATION) schedulerFactory: Scheduler
@@ -95,8 +95,8 @@ class NetModule {
 
     @Singleton
     @Provides
-    @Named(WEATHER)
-    fun provideWeatherApiBaseUrl(networkSettingsProvider: NetworkSettingsProvider): IBaseUrlProviderFactory {
+    @Named(FOURSQUARE)
+    fun provideFoursquareApiBaseUrl(networkSettingsProvider: NetworkSettingsProvider): IBaseUrlProviderFactory {
         return object : IBaseUrlProviderFactory {
             override fun create(): IBaseUrlProvider {
                 return FoursquareApiBaseUrl(networkSettingsProvider)
@@ -106,9 +106,9 @@ class NetModule {
 
     @Singleton
     @Provides
-    fun provideWeatherApiFactory(
+    fun provideFoursquareApiFactory(
         client: OkHttpClient,
-        @Named(WEATHER) urlProviderFactory: IBaseUrlProviderFactory,
+        @Named(FOURSQUARE) urlProviderFactory: IBaseUrlProviderFactory,
         converterFactory: GsonConverterFactory
     ): ApiFactory<FoursquareApi> {
         return GenericApiFactory(
@@ -121,6 +121,6 @@ class NetModule {
 
     companion object {
         private const val LOG_TAG = "HTTP"
-        private const val WEATHER = "WEATHER"
+        private const val FOURSQUARE = "FOURSQUARE"
     }
 }
